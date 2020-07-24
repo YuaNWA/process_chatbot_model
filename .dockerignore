@@ -1,0 +1,29 @@
+# git
+.git
+.gitattributes
+.gitignore
+
+# Common
+README.md
+CHANGELOG.md
+docker-compose.yml
+Dockerfile
+*.tar
+
+# jupyter
+*.ipynb
+ipynb_checkpoints/
+
+# log files
+*.log
+*.log.*
+
+edited_files/
+nltk_data/
+polyglot_data/
+udpipe-ud/
+uwn_tsv/
+model/
+data_files/
+input_files/
+output_files/

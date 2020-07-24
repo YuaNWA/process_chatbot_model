@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+
+ chatbot-api:
+    image: 414046320452.dkr.ecr.ap-southeast-1.amazonaws.com/chatbot-api
+    container_name: chatbot-api
+    restart: always
+    expose:
+      - 9050
+    ports:
+      - 127.0.0.1:9050:9050
+    volumes:
+      - ~/chatbot_data/nltk_data:/home/newuser/nltk_data
+      - ~/chatbot_data/polyglot_data:/home/newuser/polyglot_data
+      - ~/chatbot_data/uwn_tsv/:/home/newuser/uwn_tsv
+      - ~/chatbot_data/udpipe-ud:/home/newuser/udpipe-ud
+

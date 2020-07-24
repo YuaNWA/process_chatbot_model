@@ -1,0 +1,44 @@
+FROM ubuntu:latest
+
+COPY requirements.txt requirements.txt
+
+RUN apt-get update --fix-missing && apt-get -y upgrade && apt-get install sudo -y \
+  && apt-get install libicu-dev -y \
+  && apt-get install --reinstall -y locales \
+  && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+  && locale-gen en_US.UTF-8 \
+  && addgroup --system newgroup && adduser --disabled-password --system --ingroup newgroup newuser \
+  && usermod -aG sudo newuser \
+  && adduser newuser sudo \
+  && chown newuser:newgroup -R /home/newuser \
+  && chmod g+s /home/newuser \
+  && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+ENV TZ=Asia/Singapore
+
+  RUN apt-get -y install python3.8 \
+  && apt-get -y install python3-pip \
+  && apt-get -y install git \
+  && apt-get -y install vim \
+  && pip3 install -r requirements.txt \
+  #&& python3 -m deeppavlov install intents_snips \
+  #&& python3 -m nltk.downloader punkt \
+  #&& python3 -m nltk.downloader stopwords \
+  #&& python3 -m nltk.downloader perluniprops \
+  #&& python3 -m nltk.downloader nonbreaking_prefixes \
+  && python3 -m deeppavlov install brillmoore_wikitypos_en \
+  && python3 -m spacy download en_core_web_sm \
+  && export DP_SKIP_NLTK_DOWNLOAD="TRUE" \
+  && export NLTK_DATA=/nltk_data/ \
+  && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+USER newuser
+
+WORKDIR /home/newuser/
+
+COPY --chown=newuser:newgroup . .
+
+CMD ["python3", "main.py"]
