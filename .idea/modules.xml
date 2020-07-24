@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../process_chatbot_model/.idea/process_chatbot_model.iml" filepath="$PROJECT_DIR$/../process_chatbot_model/.idea/process_chatbot_model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/process_reactions_quality_check.iml" filepath="$PROJECT_DIR$/.idea/process_reactions_quality_check.iml" />
     </modules>
   </component>
 </project>
